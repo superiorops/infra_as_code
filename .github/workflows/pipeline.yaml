@@ -8,11 +8,12 @@ on:
 jobs:
   azure-test:
     runs-on: "ubuntu-22.04"
+    environment: AZ-DEV
     steps:
       - name: AZ Login
         uses: azure/login@v1
         with:
-          creds: '${{ secrets.AZ_CREDENTIALS }}'
+          creds: '${{ env.AZ_CREDENTIALS }}'
 
       - name: Azure CLI script
         uses: azure/CLI@v1
