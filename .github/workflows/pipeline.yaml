@@ -14,14 +14,16 @@ jobs:
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+      - name: check AzureVersion
+        run: az --version
 
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.43.0
-          inlineScript: |
-            az account show
-            az group list -otable
+      # - name: Azure CLI script
+      #   uses: azure/CLI@v1
+      #   with:
+      #     azcliversion: 2.43.0
+      #     inlineScript: |
+      #       az account show
+      #       az group list -otable
 
   # pre-build:
   #   runs-on: ubuntu:latest
