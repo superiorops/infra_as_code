@@ -1,0 +1,34 @@
+name:  BuildInfra
+on:
+  push:
+   branches
+     - main
+     - release/*
+
+jobs:
+  azure-test:
+    runs-on: ubuntu:latest
+    steps:
+      
+      - name: AZ Login
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZ_CREDENTIALS }}'
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+        azcliversion: 2.43.0
+        inlineScript: |
+            az account show
+            az group list -otable
+
+  # pre-build:
+  #   runs-on: ubuntu:latest
+  #   steps:
+  #     - uses: hashicorp/setup-terraform@v2
+  #       with:
+  #         terraform_version: 1.3.7
+
+
+
