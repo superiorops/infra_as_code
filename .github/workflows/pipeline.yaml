@@ -8,7 +8,6 @@ on:
 jobs:
   azure-test:
     runs-on: "ubuntu-22.04"
-    environment: AZ-DEV
     steps:
       - name: AZ Login
         uses: azure/login@v1
