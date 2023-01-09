@@ -19,6 +19,7 @@ jobs:
           azcliversion: 2.43.0
           inlineScript: |
             az account show
+            az group create -g new0394 -l westeurope
             az group list -otable
 
   # pre-build:
