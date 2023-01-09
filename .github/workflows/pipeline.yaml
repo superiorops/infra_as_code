@@ -7,7 +7,7 @@ on:
 
 jobs:
   azure-test:
-    runs-on: "ubuntu:22.04"
+    runs-on: "ubuntu-22.04"
     steps:
       - name: AZ Login
         uses: azure/login@v1
