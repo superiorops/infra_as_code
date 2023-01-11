@@ -1,0 +1,36 @@
+# Rename this file to terraform.tfvars afte substituting the values
+
+prefix = "jenkins"
+
+location = "eastus"
+
+
+#jenkins Variables
+
+jenkins_inbound_ports = ["22"]
+jenkins_vm_size       = "Standard_B2s"
+
+# Web Variables
+web_inbound_ports = ["80"]
+web_vm_size       = "Standard_B1s"
+web_node_count    = 2
+
+
+# App  Variables
+web_inbound_ports = ["80"]
+web_vm_size       = "Standard_B1s"
+web_node_count    = 2
+
+
+#Database Variables
+db_inbound_ports = ["3306"]
+db_vm_size       = "Standard_B1s"
+db_node_count    = 2
+
+
+#common VM variables
+username                 = "    "
+destination_ssh_key_path = "/home/adminuser/.ssh/authorized_keys"
+
+application_port = "80"
+
