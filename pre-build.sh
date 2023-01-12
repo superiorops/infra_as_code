@@ -1,15 +1,15 @@
 #!/bin/bash
 
-ENV=$1
-TF_STATE_RG=$2
-TF_STORAGE_ACCOUNT_PREFIX=$3
-LOCATION=$4
-TF_CONTAINER="tfstate"
-TF_KEY="tfstate-$ENV"
+# ENV=$1
+# TF_STATE_RG=$2
+# TF_STORAGE_ACCOUNT_PREFIX=$3
+# LOCATION=$4
+# TF_CONTAINER="tfstate"
+# TF_KEY="tfstate-$ENV"
 
 # print temp env variables
 
-echo $ENV $TF_STATE_RG $TF_STORAGE_ACCOUNT_PREFIX 
+echo $TF_STATE_RG $ENV $LOCATION
 
 echo "Completed for now"
 
