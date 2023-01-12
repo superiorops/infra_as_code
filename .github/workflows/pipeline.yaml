@@ -17,12 +17,14 @@ jobs:
     runs-on: "ubuntu-22.04"
     environment: AZ-DEV
     steps:
+      - name: Checking source code  
+        uses: actions/checkout@v3
+      
       - name: AZ Login
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
-      - name: Checking source code  
-        uses: actions/checkout@v3
+
       - name: prebuild
         run: |
            bash ./pre-build.sh
@@ -32,9 +34,7 @@ jobs:
           TF_STORAGE_ACCOUNT_PREFIX: ${{ env.TF_STORAGE_ACCOUNT_PREFIX }}
           LOCATION: ${{ env.LOCATION }}
           
-          
-
-
+    
         
   # pre-build:
   #   runs-on: ubuntu:latest
