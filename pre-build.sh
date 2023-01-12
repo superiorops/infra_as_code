@@ -11,14 +11,18 @@ else
 fi
 
 
-# Check if Storage Account exists, if not create
-
-isSA=$(az storage account list --resource-group $TF_STATE_RG --query "[].name" -otsv | grep -i $TF_STORAGE_ACCOUNT_PREFIX )
-
-echo $isSA
-
 rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
 echo $rndstr
+
+
+# Check if Storage Account exists, if not create
+
+# isSA=$(az storage account list --resource-group $TF_STATE_RG --query "[].name" -otsv | grep -i $TF_STORAGE_ACCOUNT_PREFIX )
+
+# echo $isSA
+
+# rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
+# echo $rndstr
 
 # if [[ -z $isSA ]]
 # then
