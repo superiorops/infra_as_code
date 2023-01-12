@@ -1,18 +1,20 @@
 #!/bin/bash
 
-# # Check if Resource Group exists if not create resource group
-# if  $(az group exists --name $TF_STATE_RG)
-# then
-#     echo "$TF_STATE_RG resource group exists"
-# else
+# Check if Resource Group exists if not create resource group
+if  $(az group exists --name $TF_STATE_RG)
+then
+    echo "$TF_STATE_RG resource group exists"
+else
 
-#     echo "$TF_STATE_RG  doesn't exist creating one"
-#     az group create --name $TF_STATE_RG --location $LOCATION
-# fi
+    echo "$TF_STATE_RG  doesn't exist creating one"
+    az group create --name $TF_STATE_RG --location $LOCATION
+fi
 
 
-rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
-echo $rndstr
+az storage account create --name yxyuioysd37888 --resource-group $TF_STATE_RG --location $LOCATION 
+
+# rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
+# echo $rndstr
 
 
 # Check if Storage Account exists, if not create
