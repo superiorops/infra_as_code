@@ -24,7 +24,8 @@ jobs:
       - name: prebuild
         run: |
            echo $PWD && \
-           ls -l 
+           ls -al && \
+           cd .github 
         
   # pre-build:
   #   runs-on: ubuntu:latest
