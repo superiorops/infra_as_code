@@ -19,7 +19,7 @@ jobs:
         with:
           azcliversion: 2.43.0
           inlineScript: |
-            echo ${{ github.env }} ${{ github.repository }} ${{ TF_STATE_RG }}
+            echo ${{ github.env }} ${{ github.repository }} ${{ env.TF_STATE_RG }}
             az account show
             az group list -otable
 
