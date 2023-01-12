@@ -26,6 +26,15 @@ jobs:
       - name: prebuild
         run: |
            bash ./pre-build.sh
+        env:
+          ENV: ${{ env.ENV }}
+          TF_STATE_RG: ${{ env.TF_STATE_RG }}
+          TF_STORAGE_ACCOUNT_PREFIX: ${{ env.TF_STORAGE_ACCOUNT_PREFIX }}
+          LOCATION: ${{ env.LOCATION }}
+          
+          
+
+
         
   # pre-build:
   #   runs-on: ubuntu:latest
