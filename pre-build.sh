@@ -17,20 +17,23 @@ isSA=$(az storage account list --resource-group $TF_STATE_RG --query "[].name" -
 
 echo $isSA
 
-if [[ -z $isSA ]]
-then
-    rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
-    STORAGE_ACCOUNT=${TF_STORAGE_ACCOUNT_PREFIX}$rndstr
-    echo -e "Storage account with the prefix $TF_STORAGE_ACCOUNT_PREFIX doesn't exist.....  \nCreating $STORAGE_ACCOUNT for the state "
-    az storage account create --name $STORAGE_ACCOUNT \
-                          --resource-group $TF_STATE_RG  \
-                          --location $LOCATION --sku Standard_LRS 
+rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
+echo $rndstr
 
-else
-    echo -e "Storage acocunt with prefix $TF_STORAGE_ACCOUNT_PREFIX exists....\nUsing Storage Account $isSA for the TF state"
-    STORAGE_ACCOUNT=$isSA 
+# if [[ -z $isSA ]]
+# then
+#     rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
+#     STORAGE_ACCOUNT=${TF_STORAGE_ACCOUNT_PREFIX}$rndstr
+#     echo -e "Storage account with the prefix $TF_STORAGE_ACCOUNT_PREFIX doesn't exist.....  \nCreating $STORAGE_ACCOUNT for the state "
+#     az storage account create --name $STORAGE_ACCOUNT \
+#                           --resource-group $TF_STATE_RG  \
+#                           --location $LOCATION --sku Standard_LRS 
+
+# else
+#     echo -e "Storage acocunt with prefix $TF_STORAGE_ACCOUNT_PREFIX exists....\nUsing Storage Account $isSA for the TF state"
+#     STORAGE_ACCOUNT=$isSA 
     
-fi
+# fi
 
 # echo "Creating Container "                 
 # az storage container create --name $TF_CONTAINER \
