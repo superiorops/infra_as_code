@@ -5,6 +5,13 @@ on:
      - main
      - release/*
 
+env:
+  ENV: "dev"
+  TF_STATE_RG: "infrabase" 
+  TF_STORAGE_ACCOUNT_PREFIX: "demotf"
+  LOCATION: "eastus"
+  TF_CONTAINER: "tfstate"
+
 jobs:
   azure-test:
     runs-on: "ubuntu-22.04"
@@ -14,14 +21,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.43.0
-          inlineScript: |
-            az account show
-            az group list -otable      
-      - run: echo ${{ github.env }} ${{ github.repository }} ${{ env.TF_STATE_RG }} 
+      - name: prebuild
+        run: bash ${GITHUB_WORKSPACE}/pre-build.sh
+      
 
   # pre-build:
   #   runs-on: ubuntu:latest
