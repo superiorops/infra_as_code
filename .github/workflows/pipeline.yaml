@@ -22,9 +22,10 @@ jobs:
         with:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
       - name: prebuild
-        run: bash ./pre-build.sh
-      
-
+        run: |
+           echo $PWD && \
+           ls -l 
+        
   # pre-build:
   #   runs-on: ubuntu:latest
   #   steps:
