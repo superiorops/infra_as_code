@@ -22,7 +22,7 @@ jobs:
         with:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
       - name: prebuild
-        run: bash ${GITHUB_WORKSPACE}/pre-build.sh
+        run: bash ./pre-build.sh
       
 
   # pre-build:
