@@ -1,55 +1,52 @@
 #!/bin/bash
 
 ENV=$1
-TFSTATERG=$2
-SAG=$3
+TF_STATE_RG=$2
+TF_STORAGE_ACCOUNT_PREFIX=$3
 LOCATION=$4
-CONTAINERNAME="tfstate"
-TFKEY="tfstate-$ENV"
+TF_CONTAINER="tfstate"
+TF_KEY="tfstate-$ENV"
 
 # Check if Resource Group exists if not create resource group
-if  $(az group exists --name $TFSTATERG)
+if  $(az group exists --name $TF_STATE_RG)
 then
-    echo "$TFSTATERG resource group exists"
+    echo "$TF_STATE_RG resource group exists"
 else
 
-    echo "$TFSTATERG  doesn't exist creating one"
-    az group create --name $TFSTATERG --location $LOCATION
+    echo "$TF_STATE_RG  doesn't exist creating one"
+    az group create --name $TF_STATE_RG --location $LOCATION
 fi
 
 
 # Check if Storage Account exists, if not create
 
-isSA=$(az storage account list --resource-group $TFSTATERG --query "[].name" -otsv | grep -i $SAG )
+isSA=$(az storage account list --resource-group $TF_STATE_RG --query "[].name" -otsv | grep -i $TF_STORAGE_ACCOUNT_PREFIX )
 
 echo $isSA
 
 if [[ -z $isSA ]]
 then
     rndstr=$(sed "s/[^a-z0-9]//g" <<< $(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#$%*()-+' | fold -w 32 | head -n 1  ) | head -c 4)
-    STORAGEACCOUNT=${SAG}$rndstr
-    echo -e "Storage account with the prefix $SAG doesn't exist.....  \nCreating $STORAGEACCOUNT for the state "
+    STORAGEACCOUNT=${TF_STORAGE_ACCOUNT_PREFIX}$rndstr
+    echo -e "Storage account with the prefix $TF_STORAGE_ACCOUNT_PREFIX doesn't exist.....  \nCreating $STORAGEACCOUNT for the state "
     az storage account create --name $STORAGEACCOUNT \
-                          --resource-group $TFSTATERG  \
+                          --resource-group $TF_STATE_RG  \
                           --location $LOCATION --sku Standard_LRS 
 
 else
-    echo -e "Storage acocunt with prefix $SAG exists....\nUsing Storage Account $isSA for the TF state"
+    echo -e "Storage acocunt with prefix $TF_STORAGE_ACCOUNT_PREFIX exists....\nUsing Storage Account $isSA for the TF state"
     STORAGEACCOUNT=$isSA 
     
 fi
 
-
 echo "Creating Container "                 
-az storage container create --name $CONTAINERNAME \
+az storage container create --name $TF_CONTAINER \
                             --account-name $STORAGEACCOUNT 2> /dev/null
 
+ACCOUNT_KEY=$(az storage account keys list --resource-group $TF_STATE_RG --account-name $STORAGEACCOUNT --query '[0].value' -o tsv)
+export ARM_ACCESS_KEY=$ACCOUNT_KEY
 
-# ACCOUNT_KEY=$(az storage account keys list --resource-group $TFSTATERG --account-name $STORAGEACCOUNT --query '[0].value' -o tsv)
-
-echo $ACCOUNT_KEY
-
-sed -e "s,#TFSTATERG#,$TFSTATERG,g" -e "s,#STORAGEACCOUNT#,$STORAGEACCOUNT,g" \
-    -e "s,#CONTAINERNAME#,${CONTAINERNAME},g" -e "s,#TFKEY#,${TFKEY},g" TF/remotebackend.tpl > TF/remotebackend.tf
+sed -e "s,#TF_STATE_RG#,$TF_STATE_RG,g" -e "s,#STORAGEACCOUNT#,$STORAGEACCOUNT,g" \
+    -e "s,#TF_CONTAINER#,${TF_CONTAINER},g" -e "s,#TF_KEY#,${TF_KEY},g" TF/remotebackend.tpl > TF/remotebackend.tf
 
 
