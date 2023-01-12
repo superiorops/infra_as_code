@@ -19,7 +19,7 @@ jobs:
         with:
           azcliversion: 2.43.0
           inlineScript: |
-            echo  '${{ GITHUB_ENV }}'
+            echo  "${{ GITHUB_ENV }}"
             az account show
             az group list -otable
 
