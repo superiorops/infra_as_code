@@ -17,15 +17,15 @@ jobs:
     runs-on: "ubuntu-22.04"
     environment: AZ-DEV
     steps:
+      - uses: actions/checkout@v3
       - name: AZ Login
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
       - name: prebuild
         run: |
-           echo $PWD && \
-           ls -al && \
-           cd .github 
+           pwd && echo "workspace is $$GITHUB_WORKSPACE" && \
+           ls -al
         
   # pre-build:
   #   runs-on: ubuntu:latest
