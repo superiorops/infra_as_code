@@ -19,7 +19,7 @@ jobs:
         with:
           azcliversion: 2.43.0
           inlineScript: |
-            echo  " $GITHUB_ENV $GITHUB_REF_NAME $TF_STATE_RG, $TF_STORAGE_ACCOUNT"
+            echo  " {{ GITHUB_ENV }}"
             az account show
             az group list -otable
 
