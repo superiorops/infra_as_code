@@ -19,9 +19,9 @@ jobs:
         with:
           azcliversion: 2.43.0
           inlineScript: |
-            echo ${{ github.env }} ${{ github.repository }} ${{ env.TF_STATE_RG }}
             az account show
-            az group list -otable
+            az group list -otable      
+      - run: echo ${{ github.env }} ${{ github.repository }} ${{ TF_STATE_RG }} 
 
   # pre-build:
   #   runs-on: ubuntu:latest
