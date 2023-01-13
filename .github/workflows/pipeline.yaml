@@ -17,7 +17,7 @@ env:
   TF_STORAGE_ACCOUNT_PREFIX: "demotf"
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
-
+  FIRST_RUN: True
 jobs:
   azure-test:
     runs-on: "ubuntu-22.04"
@@ -32,6 +32,7 @@ jobs:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
 
       - name: prebuild
+        if: ${{ env.FIRST_RUN = True }}
         run: |
            bash ./pre-build.sh
         env:
