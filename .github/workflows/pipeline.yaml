@@ -41,18 +41,14 @@ jobs:
           TF_STORAGE_ACCOUNT_PREFIX: ${{ env.TF_STORAGE_ACCOUNT_PREFIX }}
           LOCATION: ${{ env.LOCATION }}
          # Install the preferred version of Terraform CLI 
-      - name: check terraform.tf state
-        run: cat remotebackend.tf
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.3.7
+      - name: run Terraform
+        id: init
+        run: terraform init
         working-directory: TF
-      
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      #   with:
-      #     terraform_version: 1.3.7
-      # - name: run Terraform
-      #   id: init
-      #   run: terraform init
-      #   working-directory: TF
         
         
                       
