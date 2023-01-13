@@ -17,7 +17,7 @@ env:
   TF_STORAGE_ACCOUNT_PREFIX: "demotf"
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
-  FIRST_RUN: True
+  FIRST_RUN: False
 jobs:
   azure-test:
     runs-on: "ubuntu-22.04"
