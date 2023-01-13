@@ -11,11 +11,9 @@ else
 fi
 
 
-Check if Storage Account exists, if not create
+# Check if Storage Account exists, if not create
 
 isSA=$(az storage account list --resource-group $TF_STATE_RG --query "[].name" -otsv | grep -i $TF_STORAGE_ACCOUNT_PREFIX )
-
-# echo $isSA
 
 if [[ -z $isSA ]]
 then
