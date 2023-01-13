@@ -32,7 +32,7 @@ jobs:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
 
       - name: prebuild
-        if: ${{ env.FIRST_RUN = True }}
+        if: ${{ env.FIRST_RUN == True }}
         run: |
            bash ./pre-build.sh
         env:
