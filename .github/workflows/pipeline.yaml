@@ -17,7 +17,7 @@ env:
   TF_STORAGE_ACCOUNT_PREFIX: "demotf"
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
-  FIRST_RUN: False
+  FIRST_RUN: True
 jobs:
   azure-test:
     runs-on: "ubuntu-22.04"
@@ -40,8 +40,25 @@ jobs:
           TF_STATE_RG: ${{ env.TF_STATE_RG }}
           TF_STORAGE_ACCOUNT_PREFIX: ${{ env.TF_STORAGE_ACCOUNT_PREFIX }}
           LOCATION: ${{ env.LOCATION }}
-          
-    
+         # Install the preferred version of Terraform CLI 
+      - name: check terraform.tf state
+        run: cat remotebackend.tf
+        working-directory: TF
+      
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 1.3.7
+      # - name: run Terraform
+      #   id: init
+      #   run: terraform init
+      #   working-directory: TF
+        
+        
+                      
+
+        
+      
         
   # pre-build:
   #   runs-on: ubuntu:latest
