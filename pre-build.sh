@@ -37,7 +37,10 @@ az storage container create --name $TF_CONTAINER \
 ACCOUNT_KEY=$(az storage account keys list --resource-group $TF_STATE_RG --account-name $STORAGE_ACCOUNT --query '[0].value' -o tsv)
 export ARM_ACCESS_KEY=$ACCOUNT_KEY
 
+TF_KEY="tfstate-$ENV"
+
+
 sed -e "s,#TF_STATE_RG#,$TF_STATE_RG,g" -e "s,#STORAGE_ACCOUNT#,$STORAGE_ACCOUNT,g" \
-    -e "s,#TF_CONTAINER#,${TF_CONTAINER},g" -e "s,#TF_KEY#,${TF_KEY},g" TF/remotebackend.tpl > TF/remotebackend.tf
+    -e "s,#TF_CONTAINER#,$TF_CONTAINER,g" -e "s,#TF_KEY#,$TF_KEY,g" TF/remotebackend.tpl > TF/remotebackend.tf
 
 
