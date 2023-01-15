@@ -5,29 +5,29 @@ location = "#LOCATION#"
 
 #agent Variables
 
-agent_inbound_ports = ["22", "8080"]
-agent_vm_size       = "Standard_B2s"
+agent_inbound_ports = #AGENT_INBOUND_PORTS#
+agent_vm_size       =  #AGENT_VM_SIZE#
 
 #Web Variables
-web_inbound_ports = ["80", "8080"]
-web_vm_size       = "Standard_B1s"
+web_inbound_ports = #WEB_INBOUND_PORTS#
+web_vm_size       = #WEB_VM_SIZE#
 web_node_count    = 2
 
 #Database Variables
-db_inbound_ports = ["3306"]
-db_vm_size       = "Standard_B1s"
+db_inbound_ports = #DB_INBOUND_PORTS#
+db_vm_size       = #DB_VM_SIZE#
 db_node_count    = 1
 
 
 #common VM variables
-username  = "#ADMINUSER#"
+username  = "#USERNAME#"
 pubkeypath = id_demo
 
 destination_ssh_key_path = "/home/#ADMINUSER#/.ssh/authorized_keys"
-application_port = "80"
+application_port = #APP_PORT#
 
 tags = {
-    
+    Project = #PREFIX# 
     DeployMode="Terraform"
     Environment = "#ENVIRONMENT#"
 }
