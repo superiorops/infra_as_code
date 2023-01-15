@@ -26,20 +26,29 @@ jobs:
       - name: Checking source code  
         uses: actions/checkout@v3
 
+
+      
+
       - name: Loading Environmnet variables
         shell: bash
         run: cat dev.env | tee $GITHUB_ENV
+      - name: print env variables 
+        env:
+          TF_STATE_RG: ${{ env.TF_STATE_RG }}  
+          USERNAME: ${{ env.username }}      
+        run: |
+          while read line; do
+            echo "$line" 
+          done < $GITHUB_ENV && \
+          env && \
+          echo TF_STATE_RG, USERNAME  
+      
       - name: AZ Login
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZ_CREDENTIALS }}'
       
-      - name: print env variables 
-        run: |
-          while read line; do
-            echo "$line" 
-          done < $GITHUB_ENV && \
-          echo ${{ env.TF_STATE_RG }}  && ${{ env.username }}  
+      
       
       # # Set up remote backend for Terraform State.
 
