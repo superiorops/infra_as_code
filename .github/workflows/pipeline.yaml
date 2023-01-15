@@ -25,12 +25,12 @@ jobs:
     steps:
       - name: Checking source code  
         uses: actions/checkout@v3
-        
+
       - name: Loading Environmnet variables
         shell: bash
         run: |
           while read line; do
-            echo "$line" >> $GITHUB_ENV
+            echo "$line"
           done < ./dev.env
       
       - name: print env variables 
