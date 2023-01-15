@@ -33,7 +33,7 @@ jobs:
 
       
       # Set up remote backend for Terraform State.
-      
+
       - name: prebuild
         if: ${{ env.FIRST_RUN == 'True' }}
         run: |
@@ -58,9 +58,9 @@ jobs:
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          RESOURCE_GROUP: ${{ env.TF_STATE_RG }}
           STORAGE_ACCOUNT: "${{ env.TF_STORAGE_ACCOUNT }}"
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
