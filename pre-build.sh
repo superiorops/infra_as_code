@@ -44,3 +44,5 @@ sed -e "s,#TF_STATE_RG#,$TF_STATE_RG,g" -e "s,#TF_STORAGE_ACCOUNT#,$TF_STORAGE_A
     -e "s,#TF_CONTAINER#,$TF_CONTAINER,g" -e "s,#TF_KEY#,$TF_KEY,g" TF/remotebackend.tpl > TF/remotebackend.tf
 
 
+echo  "TF_STORAGE_ACCOUNT=${TF_STORAGE_ACCOUNT}" >> $GITHUB_ENV
+

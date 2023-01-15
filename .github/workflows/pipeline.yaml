@@ -40,28 +40,30 @@ jobs:
           TF_STATE_RG: ${{ env.TF_STATE_RG }}
           TF_STORAGE_ACCOUNT_PREFIX: ${{ env.TF_STORAGE_ACCOUNT_PREFIX }}
           LOCATION: ${{ env.LOCATION }}
-         # Install the preferred version of Terraform CLI 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.3.7
-      - name: run Terraform
-        id: init
-        run: terraform init
-        working-directory: TF
+      - name: Check storageAccount Name
+        run: echo "${{ env.TF_STORAGE_ACCOUNT }}"
+      #    # Install the preferred version of Terraform CLI 
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 1.3.7
+      # - name: run Terraform
+      #   id: init
+      #   run: terraform init
+      #   env:
+      #     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      #     ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      #     ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      #     ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      #     RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
+      #     STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+      #     CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+      #   working-directory: TF
         
         
                       
 
         
       
-        
-  # pre-build:
-  #   runs-on: ubuntu:latest
-  #   steps:
-  #     - uses: hashicorp/setup-terraform@v2
-  #       with:
-  #         terraform_version: 1.3.7
-
 
 
