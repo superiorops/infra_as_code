@@ -54,7 +54,7 @@ jobs:
 
       - name: run Terraform
         id: init
-        run: terraform init
+        run: terraform init && terraform apply --auto-approve
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -64,6 +64,8 @@ jobs:
           STORAGE_ACCOUNT: "${{ env.TF_STORAGE_ACCOUNT }}"
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
+
+
         
         
                       
