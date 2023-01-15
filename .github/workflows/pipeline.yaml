@@ -25,13 +25,14 @@ jobs:
     steps:
       - name: Checking source code  
         uses: actions/checkout@v3
-
-
-      
-
+        
       - name: Loading Environmnet variables
         shell: bash
-        run: cat dev.env >> $GITHUB_ENV # always >> and not >
+        run: |
+          while read line; do
+            echo "$line" >> $GITHUB_ENV
+          done < ./dev.env
+      
       - name: print env variables 
         env:
           TF_STATE_RG: ${{ env.TF_STATE_RG }}  
