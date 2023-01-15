@@ -31,7 +31,7 @@ jobs:
 
       - name: Loading Environmnet variables
         shell: bash
-        run: cat dev.env | tee $GITHUB_ENV
+        run: cat dev.env >> $GITHUB_ENV # always >> and not >
       - name: print env variables 
         env:
           TF_STATE_RG: ${{ env.TF_STATE_RG }}  
@@ -40,8 +40,8 @@ jobs:
           while read line; do
             echo "$line" 
           done < $GITHUB_ENV && \
-          env && \
-          echo TF_STATE_RG, USERNAME  
+          echo env && \
+          echo TF_STATE_RG, USERNAME,   
       
       - name: AZ Login
         uses: azure/login@v1
