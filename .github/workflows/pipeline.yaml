@@ -66,7 +66,7 @@ jobs:
 
       - name: check AzureKey
         env:
-          pub_key: ${{ env.PUB_KEY }}    
+          pub_key: ${{ vars.PUB_KEY }}    
         run: |
            echo $pub_key && \
            echo $pub_key >> id_az.pub
