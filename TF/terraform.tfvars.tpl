@@ -13,6 +13,12 @@ web_inbound_ports = #WEB_INBOUND_PORTS#
 web_vm_size       = #WEB_VM_SIZE#
 web_node_count    = #WEB_NODE_COUNT#
 
+
+# Web Variables
+app_inbound_ports = #APP_INBOUND_PORTS#
+app_vm_size       = #APP_VM_SIZE#
+app_node_count    = #APP_NODE_COUNT#
+
 # Database Variables
 db_inbound_ports = #DB_INBOUND_PORTS#
 db_vm_size       = #DB_VM_SIZE#

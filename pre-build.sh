@@ -46,10 +46,11 @@ sed -e 's|#TF_STATE_RG#|'"${TF_STATE_RG}"'|g' -e 's|#TF_STORAGE_ACCOUNT#|'"${TF_
     -e 's|#TF_CONTAINER#|'"${TF_CONTAINER}"'|g' -e 's|#TF_KEY#|'"${TF_KEY}"'|g' TF/remotebackend.tpl > TF/remotebackend.tf
 
 
-sed -e 's|#PREFIX#|'"${PREFIX}"'|g' -e 's|#LOCATION#|'"${LOCATION}"'|g' -e 's|#ENVIRONMENT#|'"${ENV}"'|g' -e 's|#AGENT_INBOUND_PORTS#|'"${AGENT_INBOUND_PORTS}"'|g' -e 's|#AGENT_VM_SIZE#|'"${AGENT_VM_SIZE}"'|g' \
-    -e 's|#WEB_INBOUND_PORTS#|'"${WEB_INBOUND_PORTS}"'|g' -e 's|#WEB_VM_SIZE#|'"${WEB_VM_SIZE}"'|g' -e 's|#WEB_NODE_COUNT#|'"${WEB_NODE_COUNT}"'|g' \
-    -e 's|#DB_INBOUND_PORTS#|'"${DB_INBOUND_PORTS}"'|g'  -e 's|#DB_VM_SIZE#|'"${DB_VM_SIZE}"'|g' -e 's|#DB_NODE_COUNT#|'"${DB_NODE_COUNT}"'|g' \
-    -e 's|#USERNAME#|'"${USERNAME}"'|g' -e 's|#APPLICATION_PORT#|'"${APPLICATION_PORT}"'|g' \
+sed -e 's|#PREFIX#|'"${PREFIX}"'|g' -e 's|#LOCATION#|'"${LOCATION}"'|g' -e 's|#ENVIRONMENT#|'"${ENV}"'|g' -e 's|#AGENT_INBOUND_PORTS#|'"${AGENT_INBOUND_PORTS}"'|g' \
+    -e 's|#AGENT_VM_SIZE#|'"${AGENT_VM_SIZE}"'|g'   -e 's|#WEB_INBOUND_PORTS#|'"${WEB_INBOUND_PORTS}"'|g' -e 's|#WEB_VM_SIZE#|'"${WEB_VM_SIZE}"'|g' \
+    -e 's|#WEB_NODE_COUNT#|'"${WEB_NODE_COUNT}"'|g' -e 's|#APP_INBOUND_PORTS#|'"${APP_INBOUND_PORTS}"'|g' -e 's|#APP_VM_SIZE#|'"${APP_VM_SIZE}"'|g' \
+    -e 's|#APP_NODE_COUNT#|'"${APP_NODE_COUNT}"'|g' -e 's|#DB_INBOUND_PORTS#|'"${DB_INBOUND_PORTS}"'|g'   -e 's|#DB_VM_SIZE#|'"${DB_VM_SIZE}"'|g' \
+    -e 's|#DB_NODE_COUNT#|'"${DB_NODE_COUNT}"'|g' -e 's|#USERNAME#|'"${USERNAME}"'|g' -e 's|#APPLICATION_PORT#|'"${APPLICATION_PORT}"'|g' \
     -e 's|#FRONTEND_PORT#|'"${FRONTEND_PORT}"'|g' TF/terraform.tfvars.tpl > TF/terraform.tfvars
 
 
