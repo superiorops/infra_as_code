@@ -61,8 +61,7 @@ jobs:
         #   TF_STORAGE_ACCOUNT_PREFIX: ${{ env.TF_STORAGE_ACCOUNT_PREFIX }}
         #   LOCATION: ${{ env.LOCATION }}
       - name: check tfvars file
-        run: cat terraform.tfvars
-        working-directory: TF
+        run: cat TF/terraform.tfvars
 
       # # Install the preferred version of Terraform CLI 
       # - name: Setup Terraform
