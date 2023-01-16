@@ -1,8 +1,6 @@
 variable "prefix" {
 }
 
-// variable "virtual_machine_name" {
-// }
 variable "Environment" {
   default = "Test"
 
@@ -12,11 +10,6 @@ variable "location" {
 
 variable "username" {
 }
-
-// variable "susbcription_id" {
-// }
-
-
 
 variable "agent_vm_size" {
   description = "Size of the db Nodes"

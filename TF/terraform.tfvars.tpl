@@ -1,6 +1,7 @@
 # Rename this file to terraform.tfvars after substituting the values
 
 # Common Variables 
+Environment = "#ENVIRONMENT#"
 prefix = "#PREFIX#"
 location = "#LOCATION#"
 
@@ -30,7 +31,10 @@ username  = "#USERNAME#"
 pubkeypath = "./id_az.pub"
 
 destination_ssh_key_path = "/home/#USERNAME#/.ssh/authorized_keys"
-application_port = #APPLICATION_PORT#
+
+application_port = "#APPLICATION_PORT#"
+frontend_port = "#FRONTEND_PORT#"
+
 
 tags = {
     Project = #PREFIX# 
