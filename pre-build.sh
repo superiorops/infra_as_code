@@ -50,7 +50,6 @@ sed -e 's|#PREFIX#|'"${PREFIX}"'|g' -e 's|#LOCATION#|'"${LOCATION}"'|g' -e 's|#E
     -e 's|#WEB_INBOUND_PORTS#|'"${WEB_INBOUND_PORTS}"'|g' -e 's|#WEB_VM_SIZE#|'"${WEB_VM_SIZE}"'|g' -e 's|#WEB_NODE_COUNT#|'"${WEB_NODE_COUNT}"'|g' \
     -e 's|#DB_INBOUND_PORTS#|'"${DB_INBOUND_PORTS}"'|g'  -e 's|#DB_VM_SIZE#|'"${DB_VM_SIZE}"'|g' -e 's|#DB_NODE_COUNT#|'"${DB_NODE_COUNT}"'|g' \
     -e 's|#USERNAME#|'"${USERNAME}"'|g' -e 's|#APPLICATION_PORT#|'"${APPLICATION_PORT}"'|g' \
-    -e 's|#FRONTEND_PORT#|'"${FRONTEND_PORT}"'|g' TF/terraform.tfvars.tpl > TF/temp.tfvars
-
+    -e 's|#FRONTEND_PORT#|'"${FRONTEND_PORT}"'|g' TF/terraform.tfvars.tpl > TF/terraform.tfvars
 
 
