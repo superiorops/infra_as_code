@@ -13,7 +13,7 @@ else
 fi
 
 
-# Check if Storage Account exists, if not create
+# Check if Storage Account exists| if not create
 
 isSA=$(az storage account list --resource-group $TF_STATE_RG --query "[].name" -otsv | grep -i $TF_STORAGE_ACCOUNT_PREFIX )
 
@@ -41,17 +41,16 @@ echo "ACCOUNT_KEY=${ARM_ACCESS_KEY}" >> $GITHUB_ENV
 echo  "TF_STORAGE_ACCOUNT=${TF_STORAGE_ACCOUNT}" >> $GITHUB_ENV
 
 TF_KEY="tfstate-$ENV"
-echo  "TF_STORAGE_ACCOUNT=${TF_STORAGE_ACCOUNT}" >> $GITHUB_ENV
 
-sed -e "s,#TF_STATE_RG#,$TF_STATE_RG,g" -e "s,#TF_STORAGE_ACCOUNT#,$TF_STORAGE_ACCOUNT,g" \
-    -e "s,#TF_CONTAINER#,$TF_CONTAINER,g" -e "s,#TF_KEY#,$TF_KEY,g" TF/remotebackend.tpl > TF/remotebackend.tf
+sed -e 's|#TF_STATE_RG#|'"${TF_STATE_RG}"'|g' -e 's|#TF_STORAGE_ACCOUNT#|'"${TF_STORAGE_ACCOUNT}"'|g' \
+    -e 's|#TF_CONTAINER#|'"${TF_CONTAINER}"'|g' -e 's|#TF_KEY#|'"${TF_KEY}"'|g' TF/remotebackend.tpl > TF/remotebackend.tf
 
- 
-sed -e "s,#ENVIRONMENT#,$ENV,g" -e "s,#AGENT_INBOUND_PORTS#,$AGENT_INBOUND_PORTS,g" -e "s,#AGENT_VM_SIZE#,$AGENT_VM_SIZE,g" \
-    -e "s,#WEB_INBOUND_PORTS#,$WEB_INBOUND_PORTS,g" -e "s,#WEB_VM_SIZE#,$WEB_VM_SIZE,g" -e "s,#WEB_NODE_COUNT#, $WEB_NODE_COUNT,g" \
-    -e "s,#DB_INBOUND_PORTS#,$DB_INBOUND_PORTS,g"  -e "s,#DB_VM_SIZE#,$DB_VM_SIZE,g" -e "s,#DB_NODE_COUNT#,$DB_NODE_COUNT,g" \
-    -e "s,#USERNAME#,$USERNAME,g"  -e "s,#APPLICATION_PORT#,$APPLICATION_PORT,g" \
-    -e "s,#FRONTEND_PORT#,$FRONTEND_PORT,g" TF/terraform.tfvars.tpl > TF/terraform.tfvars
+
+sed -e 's|#PREFIX#|'"${PREFIX}"'|g' -e 's|#LOCATION#|'"${LOCATION}"'|g' -e 's|#ENVIRONMENT#|'"${ENV}"'|g' -e 's|#AGENT_INBOUND_PORTS#|'"${AGENT_INBOUND_PORTS}"'|g' -e 's|#AGENT_VM_SIZE#|'"${AGENT_VM_SIZE}"'|g' \
+    -e 's|#WEB_INBOUND_PORTS#|'"${WEB_INBOUND_PORTS}"'|g' -e 's|#WEB_VM_SIZE#|'"${WEB_VM_SIZE}"'|g' -e 's|#WEB_NODE_COUNT#|'"${WEB_NODE_COUNT}"'|g' \
+    -e 's|#DB_INBOUND_PORTS#|'"${DB_INBOUND_PORTS}"'|g'  -e 's|#DB_VM_SIZE#|'"${DB_VM_SIZE}"'|g' -e 's|#DB_NODE_COUNT#|'"${DB_NODE_COUNT}"'|g' \
+    -e 's|#USERNAME#|'"${USERNAME}"'|g' -e 's|#APPLICATION_PORT#|'"${APPLICATION_PORT}"'|g' \
+    -e 's|#FRONTEND_PORT#|'"${FRONTEND_PORT}"'|g' TF/terraform.tfvars.tpl > TF/temp.tfvars
 
 
 
