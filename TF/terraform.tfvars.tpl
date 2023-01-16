@@ -21,7 +21,7 @@ db_node_count    = #DB_NODE_COUNT#
 
 # Common VM variables
 username  = "#USERNAME#"
-pubkeypath = id_demo
+pubkeypath = "./id_az.pub"
 
 destination_ssh_key_path = "/home/#USERNAME#/.ssh/authorized_keys"
 application_port = #APPLICATION_PORT#
