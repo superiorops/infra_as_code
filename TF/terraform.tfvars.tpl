@@ -1,30 +1,30 @@
-# Rename this file to terraform.tfvars afte substituting the values
+# Rename this file to terraform.tfvars after substituting the values
 
+# Common Variables 
 prefix = "#PREFIX#"
 location = "#LOCATION#"
 
-#agent Variables
-
+# Agent Variables
 agent_inbound_ports = #AGENT_INBOUND_PORTS#
 agent_vm_size       =  #AGENT_VM_SIZE#
 
-#Web Variables
+# Web Variables
 web_inbound_ports = #WEB_INBOUND_PORTS#
 web_vm_size       = #WEB_VM_SIZE#
-web_node_count    = 2
+web_node_count    = #WEB_NODE_COUNT#
 
-#Database Variables
+# Database Variables
 db_inbound_ports = #DB_INBOUND_PORTS#
 db_vm_size       = #DB_VM_SIZE#
-db_node_count    = 1
+db_node_count    = #DB_NODE_COUNT#
 
 
-#common VM variables
+# Common VM variables
 username  = "#USERNAME#"
 pubkeypath = id_demo
 
-destination_ssh_key_path = "/home/#ADMINUSER#/.ssh/authorized_keys"
-application_port = #APP_PORT#
+destination_ssh_key_path = "/home/#USERNAME#/.ssh/authorized_keys"
+application_port = #APPLICATION_PORT#
 
 tags = {
     Project = #PREFIX# 
