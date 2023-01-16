@@ -59,9 +59,7 @@ jobs:
       - name: Pubkey for the VMs
         env:
           pub_key: ${{ vars.PUB_KEY }}    
-        run: |
-           echo $pub_key && \
-           echo $pub_key >> TF/id_az.pub
+        run: echo $pub_key >> TF/id_az.pub
       
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
@@ -74,7 +72,7 @@ jobs:
       - name: run Terraform
         timeout-minutes: 3
         id: init
-        run: terraform init && terraform apply --auto-approve
+        run: terraform init
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
