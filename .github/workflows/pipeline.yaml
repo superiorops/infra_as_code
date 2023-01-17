@@ -51,7 +51,6 @@ jobs:
         run: echo $pub_key >> TF/id_az.pub
       
       # Install the preferred version of Terraform CLI 
-      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
@@ -95,6 +94,8 @@ jobs:
         run: |
           echo $TF_OUTPUT   
           echo $TF_OUTPUT | jq ".lb.value" -r
+          echo $TF_OUTPUT | jq ".web_ip.value" -r
+          echo $TF_OUTPUT | jq ".app_ip.value" -r
 
 
 
