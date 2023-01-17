@@ -17,6 +17,7 @@ env:
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
   FIRST_RUN: True
+  ACTION: "Apply"
 jobs:
 
   azure-test:    
@@ -73,11 +74,12 @@ jobs:
         working-directory: TF
 
       - name: apply Terraform configuration
+        if: steps.init.outcome == 'success' && ${{ env.ACTION == 'aply' }}
         timeout-minutes: 5 
         id: apply
         run: |
           terraform apply --auto-approve 
-          echo "TF_OUTPUT=$(terraform output -json)" >> $GITHUB_ENV
+          echo "TF_OUTPUT=$(terraform output -json)" > tf_output.json
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -88,14 +90,25 @@ jobs:
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
 
-      - name: view Terraform output
-        env:
-          TF_OUTPUT: "${{ env.TF_OUTPUT }}"
+      
+      - name: destroy Terraform configuration
+        if:  steps.init.outcome == 'success' && ${{ env.ACTION == 'destroy' }}
+        timeout-minutes: 5 
+        id: destroy
         run: |
-          echo $TF_OUTPUT   
-          echo $TF_OUTPUT | jq ".lb.value" -r
-          echo $TF_OUTPUT | jq ".web_ip.value" -r
-          echo $TF_OUTPUT | jq ".app_ip.value" -r
+          terraform destroy --auto-approve         
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          RESOURCE_GROUP: ${{ env.TF_STATE_RG }}
+          STORAGE_ACCOUNT: "${{ env.TF_STORAGE_ACCOUNT }}"
+          CONTAINER_NAME: ${{ env.TF_CONTAINER }}
+        working-directory: TF  
 
+      - name: view Terraform output
+        run: |
+           cat terraform
 
 
