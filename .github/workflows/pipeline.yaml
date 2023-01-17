@@ -30,19 +30,8 @@ jobs:
         shell: bash
         run: |
           while read line; do
-            echo "$line" >>$GITHUB_ENV
+            echo "$line" >> $GITHUB_ENV
           done < ./dev.env
-      
-      - name: print env variables 
-        env:
-          TF_STATE_RG: ${{ env.TF_STATE_RG }}  
-          USERNAME: ${{ env.username }}      
-        run: |
-          while read line; do
-            echo "$line" 
-          done < $GITHUB_ENV && \
-          echo env && \
-          echo ${{ env.TF_STATE_RG }} ${{ env.username }} $TF_STATE_RG   
       
       - name: AZ Login
         uses: azure/login@v1
@@ -62,6 +51,7 @@ jobs:
         run: echo $pub_key >> TF/id_az.pub
       
       # Install the preferred version of Terraform CLI 
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
@@ -69,7 +59,7 @@ jobs:
       
       # Run Terraform Init
 
-      - name: run Terraform
+      - name: initialize Terraform
         timeout-minutes: 3
         id: init
         run: terraform init
@@ -83,10 +73,12 @@ jobs:
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
 
-      - name: run Terraform
+      - name: apply Terraform configuration
         timeout-minutes: 5 
         id: apply
-        run: terraform apply --auto-approve
+        run: |
+          terraform apply --auto-approve 
+          echo "TF_OUTPUT=$(terraform output -json)" >> $GITHUB_ENV
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -96,4 +88,13 @@ jobs:
           STORAGE_ACCOUNT: "${{ env.TF_STORAGE_ACCOUNT }}"
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
+
+      - name: view Terraform output
+        env:
+          TF_OUTPUT: "${{ env.TF_OUTPUT }}"
+        run: |
+          echo $TF_OUTPUT   
+          echo $TF_OUTPUT | jq ".lb.value" -r
+
+
 
