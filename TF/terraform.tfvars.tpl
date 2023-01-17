@@ -7,7 +7,7 @@ location = "#LOCATION#"
 
 # Agent Variables
 agent_inbound_ports = "#AGENT_INBOUND_PORTS#"
-agent_vm_size       =  #AGENT_VM_SIZE#
+agent_vm_size       =  "#AGENT_VM_SIZE#"
 
 # Web Variables
 web_inbound_ports = "#WEB_INBOUND_PORTS#"
@@ -37,7 +37,7 @@ frontend_port = "#FRONTEND_PORT#"
 
 
 tags = {
-    Project = #PREFIX# 
+    Project = "#PREFIX#"
     DeployMode="Terraform"
     Environment = "#ENVIRONMENT#"
 }
