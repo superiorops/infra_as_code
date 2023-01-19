@@ -74,7 +74,7 @@ jobs:
         working-directory: TF
 
       - name: apply Terraform configuration
-        if: ${{ steps.demo.outcome == 'success' && env.ACTION == 'apply' }}
+        if: ${{ env.ACTION == 'apply' }}
         timeout-minutes: 5 
         id: apply
         run: |
@@ -92,7 +92,7 @@ jobs:
 
       
       - name: destroy Terraform configuration
-        if: ${{  steps.demo.outcome == 'success' && env.ACTION == 'destroy' }}
+        if: ${{ env.ACTION == 'destroy' }}
         timeout-minutes: 5 
         id: destroy
         run: |
