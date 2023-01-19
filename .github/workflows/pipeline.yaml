@@ -17,7 +17,7 @@ env:
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
   FIRST_RUN: True
-  ACTION: "Apply"
+  ACTION: "apply"
 jobs:
 
   azure-test:    
@@ -74,7 +74,7 @@ jobs:
         working-directory: TF
 
       - name: apply Terraform configuration
-        if: steps.init.outcome == 'success' && ${{ env.ACTION == 'aply' }}
+        if: (steps.init.outcome == 'success' && ${{ env.ACTION == 'apply' }})
         timeout-minutes: 5 
         id: apply
         run: |
@@ -92,7 +92,7 @@ jobs:
 
       
       - name: destroy Terraform configuration
-        if:  steps.init.outcome == 'success' && ${{ env.ACTION == 'destroy' }}
+        if: (steps.init.outcome == 'success' && ${{ env.ACTION == 'destroy' }})
         timeout-minutes: 5 
         id: destroy
         run: |
