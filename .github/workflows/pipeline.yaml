@@ -17,7 +17,7 @@ env:
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
   FIRST_RUN: True
-  ACTION: "apply"
+  ACTION: "destroy"
 jobs:
 
   azure-test:    
@@ -109,6 +109,6 @@ jobs:
 
       - name: view Terraform output
         run: |
-           cat terraform
+           cat tf_output.json
 
 
