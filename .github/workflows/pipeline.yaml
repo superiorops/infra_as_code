@@ -42,11 +42,13 @@ jobs:
       # Set up remote backend for Terraform State.
 
       - name: prebuild
+        timeout-minutes: 5
         if: ${{ env.FIRST_RUN == 'True' }}
         run: |
            bash ./pre-build.sh
       
       - name: Pubkey for the VMs
+        timeout-minutes: 5
         env:
           pub_key: ${{ vars.PUB_KEY }}    
         run: echo $pub_key >> TF/id_az.pub
@@ -60,7 +62,7 @@ jobs:
       # Run Terraform Init
 
       - name: initialize Terraform
-        timeout-minutes: 3
+        timeout-minutes: 10
         id: init
         run: terraform init
         env:
@@ -75,7 +77,7 @@ jobs:
 
       - name: apply Terraform configuration
         if: ${{ env.ACTION == 'apply' }}
-        timeout-minutes: 5 
+        timeout-minutes: 15 
         id: apply
         run: |
           terraform apply --auto-approve 
@@ -93,7 +95,7 @@ jobs:
       
       - name: destroy Terraform configuration
         if: ${{ env.ACTION == 'destroy' }}
-        timeout-minutes: 5 
+        timeout-minutes: 15 
         id: destroy
         run: |
           terraform destroy --auto-approve         
