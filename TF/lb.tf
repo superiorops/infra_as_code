@@ -25,6 +25,9 @@ resource "azurerm_lb" "web" {
 resource "azurerm_lb_backend_address_pool" "web" {
  loadbalancer_id     = azurerm_lb.web.id
  name                = "BackEndAddressPool"
+ depends_on = [
+   azurerm_network_interface.web
+ ]
 }
 
 resource "azurerm_lb_probe" "web" {
