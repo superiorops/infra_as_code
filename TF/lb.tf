@@ -13,7 +13,9 @@ resource "azurerm_lb" "web" {
  location            = azurerm_resource_group.myapp.location
  resource_group_name = azurerm_resource_group.myapp.name
  sku                 = "Standard"
-
+depends_on = [
+  azurerm_virtual_machine.web
+]
  frontend_ip_configuration {
    name                 = "PublicIPAddress"
    public_ip_address_id = azurerm_public_ip.web_lb.id
