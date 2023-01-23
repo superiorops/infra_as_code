@@ -11,12 +11,12 @@
 A simple Infra-As-Code ~~pipelines~~ *Workflow* to demonstrate various features of **GitHub Actions**. 
 This *workflow* does the following:
 1. Set up required Storage Account and contianer for Terraform remote backend.
-2. Create multi-tier IaaS infrastructure on Azure with Terraform. The following resources are created
+2. Create [ or destroy ]multi-tier IaaS infrastructure on Azure with Terraform. The following resources are created
     1. VPC
     2. 3 Subnets - Web, App, DB + Security Group for each subnet
     3. Desired number of VM instances in each subnet 
     4. A Load balancer for Web servers
-    
+3. Output the values when "Apply" parameter is used.     
 
 ## Tools used
 
@@ -45,9 +45,7 @@ az ad sp create-for-rbac --name <name_for_the_sp> --role contributor --scopes /s
 ```
 
 ![Create Service Principal](.imgs/create_az_sp.png?raw=true "Create Service Principal")
-
-
-4. Make sure to copy the entire output of the above command and save as an Environment variable named as `AZ_CREDENTIALS`
+Applyable named as `AZ_CREDENTIALS`
 
 5. Also, create the following secrets :
     1. AZURE_SUBSCRIPTION_ID  - Subscription ID of your Azure subscription
@@ -61,8 +59,19 @@ az ad sp create-for-rbac --name <name_for_the_sp> --role contributor --scopes /s
 
 ## Provision Infrastructure
 
+To provision Infrastructure update `dev.env` with the required values and update Action env `variable` in `.github/workflows/pipeline.yaml` to `Apply`  and check-in the code to your repository.
 
+To deprovision/delete the infrastructure update update Action env `variable` in `.github/workflows/pipeline.yaml` to `Apply`  and check-in the code to your repository
 
+## Manually run the pipeline. 
+
+This workflow can be triggered manually as well. To run the workflow manually follow the below steps:
+
+1. Go to GitHub repository :arrow_right: Actions :arrow_right: Run Manually
+
+![Manual triger](.imgs/github_manual_trigger.png "Manual Trigger")
+
+2. Choose Action as `Apply` to provision and `Destroy` to delete the infrastructure.
 
 
 
