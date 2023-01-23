@@ -20,7 +20,10 @@
 
 ## GitHub Setup
 
-1. Create the Environment
+1. Create the Environment by going to Repository `settings` -->  `Environments` and click on `New environment`
+
+![GitHub Environment](.imgs/github_env.png?raw=true "Add Environment")
+
 
 
 
@@ -32,16 +35,21 @@
 az ad sp create-for-rbac --name <name_for_the_sp> --role contributor --scopes /subscriptions/<subscription_id>  --sdk-auth
 ```
 
+![Create Service Principal](.imgs/create_az_sp.png?raw=true "Create Service Principal")
+
+
 2. Make sure to copy the entire output of the above command.
 
-3. Save the ouput from step1 as an Environment variable named as `AZ_CREDENTIALS`
+3. Save the ouput from step 1 as an Environment variable named as `AZ_CREDENTIALS`
 
 4. Also, create the following environment variables:
-    1. AZURE_SUBSCRIPTION_ID 
-    2. AZURE_TENANT_ID
-    3. ARM_CLIENT_ID 
-    4. ARM_CLIENT_SECRET 
-    3. 
+    1. AZURE_SUBSCRIPTION_ID  - Subscription ID of your Azure subscription
+    2. AZURE_TENANT_ID        - Tenant ID of your Azure subscription
+    3. ARM_CLIENT_ID          - clientid from  output of step 1
+    4. ARM_CLIENT_SECRET      - clientsecret from  output of step 1
+
+
+
 
 
 
