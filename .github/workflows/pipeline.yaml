@@ -19,7 +19,7 @@ on:
      - release/*
    paths-ignore:
      - '**/README.md'
-     - '.imgs/'
+     - '.imgs/**'
 env:
   ENV: "dev"
   TF_STATE_RG: "infrabase" 
