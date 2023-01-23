@@ -127,8 +127,8 @@ jobs:
         working-directory: TF  
       # Print Terraform Output
       - name: view Terraform output
-        if: ${{ env.Action == 'apply' }}
+        if: ${{ env.Action == 'Apply' }}
         run: |
            cat tf_output.json
-
+        working-directory: TF
 
