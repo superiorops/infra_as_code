@@ -19,6 +19,7 @@ on:
      - release/*
    paths-ignore:
      - '**/README.md'
+     - '.imgs/'
 env:
   ENV: "dev"
   TF_STATE_RG: "infrabase" 
@@ -26,7 +27,7 @@ env:
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
   FIRST_RUN: True
-  ACTION: "Apply"
+  ACTION: "Destroy"
 
 jobs:
   azure-test:    
