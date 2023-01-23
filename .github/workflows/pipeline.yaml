@@ -44,10 +44,10 @@ jobs:
           echo "Set up environment"
           if [[ ${{ github.event_name }} == "workflow_dispatch"  ]]
           then
-            echo "Action=${{ github.event.inputs.c_one }}" >> $GITHUB_ENV
+            echo "Action=${{ github.event.inputs.ACTION }}" >> $GITHUB_ENV
           elif [[ ${{ github.event_name }} == "push" ]]
           then
-            echo "Action=${{ env.var_one }}" >> $GITHUB_ENV
+            echo "Action=${{ env.ACTION }}" >> $GITHUB_ENV
           fi 
       
       - name: AZ Login
