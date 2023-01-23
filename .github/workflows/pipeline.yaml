@@ -2,6 +2,13 @@ name:  BuildInfra
 on:
   workflow_dispatch:
     inputs:
+      ACTION: 
+        type: choice
+        description: "Terraform Action - Apply to Create, destroy to delete"
+        required: true
+        options:
+          - "Apply"
+          - "Destroy"
       logLevel:
         description: 'Log level'     
         required: true
@@ -17,9 +24,9 @@ env:
   LOCATION: "eastus"
   TF_CONTAINER: "tfstate"
   FIRST_RUN: True
-  ACTION: "destroy"
-jobs:
+  ACTION: "Apply"
 
+jobs:
   azure-test:    
     runs-on: "ubuntu-22.04"
     environment: AZ-DEV
@@ -33,7 +40,17 @@ jobs:
           while read line; do
             echo "$line" >> $GITHUB_ENV
           done < ./dev.env
-      
+          # Set Action based on event type
+          if [[ ${{ github.event_name == "push" }} ]]
+          then
+            echo "Action=${{ env.ACTION }}" >> $GITHUB_ENV
+          elif [[ $${{ github.event_name == "workflow_dispatch" }} ]]
+          then
+            echo "Action=${{ github.event.inputs.Action }}" >> $GITHUB_ENV
+          else
+            echo "Not an authorized Action"
+          fi
+              
       - name: AZ Login
         uses: azure/login@v1
         with:
@@ -74,9 +91,9 @@ jobs:
           STORAGE_ACCOUNT: "${{ env.TF_STORAGE_ACCOUNT }}"
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
-
+      # Apply Terraform
       - name: apply Terraform configuration
-        if: ${{ env.ACTION == 'apply' }}
+        if: ${{ env.Action == 'Apply' }}
         timeout-minutes: 15 
         id: apply
         run: |
@@ -92,9 +109,10 @@ jobs:
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF
 
-      
+      # Destroy Terraform
+
       - name: destroy Terraform configuration
-        if: ${{ env.ACTION == 'destroy' }}
+        if: ${{ env.Action == 'Destroy' }}
         timeout-minutes: 15 
         id: destroy
         run: |
@@ -108,8 +126,9 @@ jobs:
           STORAGE_ACCOUNT: "${{ env.TF_STORAGE_ACCOUNT }}"
           CONTAINER_NAME: ${{ env.TF_CONTAINER }}
         working-directory: TF  
-
+      # Print Terraform Output
       - name: view Terraform output
+        if: ${{ env.Action == 'apply' }}
         run: |
            cat tf_output.json
 
