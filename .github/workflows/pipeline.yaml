@@ -40,17 +40,16 @@ jobs:
           while read line; do
             echo "$line" >> $GITHUB_ENV
           done < ./dev.env
-          # Set Action based on event type
-          if [[ ${{ github.event_name == "push" }} ]]
+          if [[ ${{ github.event_name }} == "push"  ]]
           then
             echo "Action=${{ env.ACTION }}" >> $GITHUB_ENV
-          elif [[ $${{ github.event_name == "workflow_dispatch" }} ]]
+          elif [[ ${{ github.event_name == "workflow_dispatch" }} ]]
           then
             echo "Action=${{ github.event.inputs.Action }}" >> $GITHUB_ENV
           else
             echo "Not an authorized Action"
           fi
-              
+
       - name: AZ Login
         uses: azure/login@v1
         with:
