@@ -22,7 +22,7 @@
 
 1. Check-in the code to your repository
 
-2. Create the Environment by going to Repository `settings` :arrow_right:  `Environments` :arrow_right: `New environment`
+2. Create the Environment by going to Repository settings :arrow_right:  Environments :arrow_right: New environment
 
 ![GitHub Environment](.imgs/github_env.png?raw=true "Add Environment")
 
@@ -47,6 +47,7 @@ az ad sp create-for-rbac --name <name_for_the_sp> --role contributor --scopes /s
     2. AZURE_TENANT_ID        - Tenant ID of your Azure subscription
     3. ARM_CLIENT_ID          - clientid from  output of step 1
     4. ARM_CLIENT_SECRET      - clientsecret from  output of step 1
+
 
 
 ![github secrets](.imgs/github_repo_secrets.png?raw=true "Create GitHub Secrets")
