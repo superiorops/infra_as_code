@@ -81,6 +81,6 @@ This workflow can be triggered manually as well. To run the workflow manually fo
 
 ### Todo
 
-- [ ] Refactor to allow mult-environments
-- [ ] Feature to pick up no. of nodes from GitHub Actions manual trigger
+- [ ] Refactor to allow multiple environments
+- [ ] Feature to pick up no. of nodes per tier from GitHub Actions manual trigger
 - [ ] Refactor Terraform Code for Modularity 
